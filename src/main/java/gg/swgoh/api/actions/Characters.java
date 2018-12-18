@@ -4,9 +4,10 @@ import gg.swgoh.api.Client;
 import gg.swgoh.api.model.Character;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class Characters implements ListAction<Character>, ReadAction<Character> {
+public class Characters implements ListAction<Character>, ReadAction<Character, Integer> {
     private final Client client;
 
     public Characters(Client client) {
@@ -19,7 +20,7 @@ public class Characters implements ListAction<Character>, ReadAction<Character> 
     }
 
     @Override
-    public Character read(String id) {
-        return null;
+    public Character read(Integer id) {
+        return this.client.action("characters/{id}", Collections.singletonMap("id", Integer.toString(id)), Character.class);
     }
 }

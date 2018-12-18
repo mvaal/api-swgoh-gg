@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Abilities implements ListAction<Ability>, ReadAction<Ability> {
+public class Abilities implements ListAction<Ability>, ReadAction<Ability, Integer> {
     private final Client client;
 
     public Abilities(Client client) {
@@ -21,7 +21,7 @@ public class Abilities implements ListAction<Ability>, ReadAction<Ability> {
     }
 
     @Override
-    public Ability read(String id) {
+    public Ability read(Integer id) {
         throw new UnsupportedOperationException("This is supposed to be there, but abilities do not seem to have an ID.");
     }
 

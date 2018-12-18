@@ -7,12 +7,13 @@ import com.squareup.okhttp.Response;
 import gg.swgoh.api.actions.Abilities;
 import gg.swgoh.api.actions.Characters;
 import lombok.SneakyThrows;
+import org.apache.commons.text.StringSubstitutor;
 
-import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
-import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
+
+import static org.apache.commons.text.StringSubstitutor.*;
 
 public class Client {
     private OkHttpClient client = new OkHttpClient();
@@ -36,10 +37,8 @@ public class Client {
 
     @SneakyThrows(IOException.class)
     public <T> T action(String template, Map<String, String> parameters, Class<T> clazz) {
-        URI uri = uri(template, parameters);
-
         Request request = new Request.Builder()
-                .url(uri.toString())
+                .url(substitute(template, parameters))
                 .get()
                 .build();
 
@@ -48,10 +47,10 @@ public class Client {
         return mapper.readValue(response.body().byteStream(), clazz);
     }
 
-    private URI uri(String template, Map<String, String> parameters) {
-        String hostTemplate = String.format("%s%s", url, template);
-        UriBuilder builder = UriBuilder.fromPath(hostTemplate);
-        return builder.build(parameters);
+    private String substitute(String template, Map<String, String> parameters) {
+        String templateString = String.format("%s%s", url, template);
+        StringSubstitutor sub = new StringSubstitutor(parameters, "{", "}", DEFAULT_ESCAPE);
+        return sub.replace(templateString);
     }
 
     public Abilities abilities() {

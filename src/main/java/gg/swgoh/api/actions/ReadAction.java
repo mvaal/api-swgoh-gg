@@ -1,5 +1,5 @@
 package gg.swgoh.api.actions;
 
-public interface ReadAction<T> {
-    T read(String id);
+public interface ReadAction<T, U> {
+    T read(U id);
 }

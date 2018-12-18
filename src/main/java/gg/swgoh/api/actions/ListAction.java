@@ -4,6 +4,4 @@ import java.util.List;
 
 public interface ListAction<T> {
     List<T> list();
-
-    T read(String id);
 }

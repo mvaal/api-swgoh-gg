@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Characters implements ListAction<Character>, ReadAction<Character, Integer> {
+public class Characters implements ListAction<Character>, ReadAction<Character> {
     private final Client client;
 
     public Characters(Client client) {
@@ -20,7 +20,7 @@ public class Characters implements ListAction<Character>, ReadAction<Character, 
     }
 
     @Override
-    public Character read(Integer id) {
-        return this.client.action("characters/{id}", Collections.singletonMap("id", Integer.toString(id)), Character.class);
+    public Character read(String id) {
+        return this.client.action("characters/{id}", Collections.singletonMap("id", id), Character.class);
     }
 }

@@ -6,6 +6,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import gg.swgoh.api.actions.Abilities;
 import gg.swgoh.api.actions.Characters;
+import gg.swgoh.api.actions.Gear;
 import lombok.SneakyThrows;
 import org.apache.commons.text.StringSubstitutor;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
-import static org.apache.commons.text.StringSubstitutor.*;
+import static org.apache.commons.text.StringSubstitutor.DEFAULT_ESCAPE;
 
 public class Client {
     private OkHttpClient client = new OkHttpClient();
@@ -59,5 +60,9 @@ public class Client {
 
     public Characters characters() {
         return new Characters(this);
+    }
+
+    public Gear gear() {
+        return new Gear(this);
     }
 }
